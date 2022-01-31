@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+    postgresql-server:
+        container_name: postgresql-server
+        image: postgres:14-alpine
+        environment:
+            POSTGRES_PASSWORD: bank
+            POSTGRES_USER: bank
+        ports:
+            - "5432:5432"
+    bank: 
+        container_name: bank
+        build: .
+        environment: 
+            POSTGRES_URL: jdbc:postgresql://postgresql-server/bank
+            POSTGRES_USER: bank
+            POSTGRES_PASSWORD: bank
+        ports:
+            - "8080:8080"
+        depends_on:
+            - postgresql-server
