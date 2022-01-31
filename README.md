@@ -10,9 +10,10 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ### Features
 **v1:**
 - [X] Criar uma conta
-- [ ] Realizar deposito
-- [ ] Realizar saque
-- [ ] Realizar transferência
+- [X] Realizar deposito
+- [X] Realizar saque
+- [X] Realizar transferência
+- [ ] Permitir a listagem de transações por conta
 
 ## Desenvolvimento
 O projeto é executado através do _Spring Boot_ como framework backend e banco de dados _PostgreSQL_ para armazenamento dos dados.

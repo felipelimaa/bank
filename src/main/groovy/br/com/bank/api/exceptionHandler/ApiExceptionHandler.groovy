@@ -1,6 +1,8 @@
 package br.com.bank.api.exceptionHandler
 
+import br.com.bank.domain.exception.AccountsNotFoundException
 import br.com.bank.domain.exception.AccountsWithoutDocumentNumberException
+import br.com.bank.domain.exception.InvalidTransactionsTypesException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -53,6 +55,24 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             WebRequest request
     ) {
         ProblemType problemType = ProblemType.INVALID_DATA
+
+        Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
+    }
+
+    @ExceptionHandler(InvalidTransactionsTypesException.class)
+    ResponseEntity<?> handleInvalidTransactionsTypesException(InvalidTransactionsTypesException e, WebRequest request) {
+        ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND
+
+        Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
+    }
+
+    @ExceptionHandler(AccountsNotFoundException.class)
+    ResponseEntity<?> handleAccountsNotFoundException(AccountsNotFoundException e, WebRequest request) {
+        ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND
 
         Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
 
