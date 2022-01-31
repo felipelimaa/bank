@@ -9,7 +9,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 ### Features
 **v1:**
-- [ ] Criar uma conta
+- [X] Criar uma conta
 - [ ] Realizar deposito
 - [ ] Realizar saque
 - [ ] Realizar transferência
