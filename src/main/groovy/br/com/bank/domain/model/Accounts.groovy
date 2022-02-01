@@ -1,14 +1,20 @@
 package br.com.bank.domain.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
+import javax.persistence.ManyToMany
+import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.validation.constraints.NotBlank
 
@@ -35,5 +41,12 @@ class Accounts {
     @Column(name="credit_avaiable", nullable = false)
     @JsonProperty("credit_avaiable")
     BigDecimal creditAvaiable = INITIAL_CREDIT_AVAIABLE
+
+    /*@OneToMany(mappedBy="accountsSender", fetch = FetchType.LAZY)
+    List<Transactions> transactionsSender
+
+    @OneToMany(targetEntity=Transactions.class, mappedBy="accountsRecipient", fetch = FetchType.LAZY)
+    List<Transactions> transactionsRecipient*/
+
 
 }
