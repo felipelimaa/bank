@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+import org.hibernate.annotations.CreationTimestamp
 
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 import javax.persistence.Table
+import java.time.LocalDateTime
 
 @Entity
 @Table
@@ -29,11 +31,13 @@ class Transactions {
     Long id
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="account_sender_id", nullable = true)
+    @JsonIgnoreProperties(["hibernateLazyInitializer", "handler"])
+    @JoinColumn(name="account_sender_id", referencedColumnName="account_id", nullable = true)
     Accounts accountsSender
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="account_recipient_id", nullable = false)
+    @JsonIgnoreProperties(["hibernateLazyInitializer", "handler"])
+    @JoinColumn(name="account_recipient_id", referencedColumnName="account_id", nullable = false)
     Accounts accountsRecipient
 
     @OneToOne
@@ -44,9 +48,10 @@ class Transactions {
     @JsonProperty("value")
     BigDecimal transactionValue
 
-    @Column(name = "transaction_date", insertable = false, updatable = false)
+    @Column(name = "transaction_date", columnDefinition = "datetime")
+    @CreationTimestamp
     @JsonProperty("transaction_date")
-    Date transactionDate = new Date()
+    LocalDateTime transactionDate
 
     @Column(name = "new_available_credit")
     @JsonIgnoreProperties(value = "new_available_credit", allowGetters = true)
