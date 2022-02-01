@@ -1,9 +1,9 @@
 package br.com.bank.domain.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import org.hibernate.annotations.Type
 
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -26,11 +26,11 @@ class TransactionsTypes {
     String description
 
     @Column(name = "need_recipient")
-    @JsonProperty("need_recipient")
+    @JsonIgnore
     String needRecipient
 
     @Column(name = "operation_decrease")
-    @JsonProperty("operation_decrease")
+    @JsonIgnore
     String operationDecrease
 
 }

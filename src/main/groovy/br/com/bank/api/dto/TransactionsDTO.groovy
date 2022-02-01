@@ -1,6 +1,9 @@
 package br.com.bank.api.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.hibernate.annotations.CreationTimestamp
+
+import java.time.LocalDateTime
 
 class TransactionsDTO {
 
@@ -22,7 +25,7 @@ class TransactionsDTO {
     @JsonProperty(value = "new_available_credit")
     BigDecimal newAvailableCredit
 
-    @JsonProperty("transaction_date")
-    Date transactionDate
+    @JsonProperty(value = "transaction_date")
+    LocalDateTime transactionDate
 
 }
