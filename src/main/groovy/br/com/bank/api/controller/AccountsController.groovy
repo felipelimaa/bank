@@ -31,6 +31,11 @@ class AccountsController {
         return ResponseEntity.ok(accounts) as ResponseEntity<Accounts>
     }
 
+    @GetMapping("/{id}")
+    ResponseEntity<Accounts> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(accountsService.findById(id)) as ResponseEntity<Accounts>
+    }
+
     @GetMapping("/{id}/transactions")
     ResponseEntity<TransactionsAccountsDTO> findAllTransactionsByAccount(@PathVariable Long id) {
         return ResponseEntity.ok(transactionsService.findAllTransactionsByAccount(id)) as ResponseEntity<TransactionsAccountsDTO>
