@@ -14,7 +14,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 - [X] Realizar saque
 - [X] Realizar transferência
 - [X] Permitir a listagem de transações por conta
-- [ ] Criar testes de Accounts
+- [X] Criar testes de Accounts
 - [ ] Criar testes de Transactions
 
 ## Desenvolvimento
