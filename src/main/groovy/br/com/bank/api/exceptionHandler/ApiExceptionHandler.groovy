@@ -1,5 +1,6 @@
 package br.com.bank.api.exceptionHandler
 
+import br.com.bank.domain.exception.AccountsDocumentNumberExistsException
 import br.com.bank.domain.exception.AccountsNotFoundException
 import br.com.bank.domain.exception.AccountsWithoutDocumentNumberException
 import br.com.bank.domain.exception.InvalidTransactionsTypesException
@@ -73,6 +74,18 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AccountsNotFoundException.class)
     ResponseEntity<?> handleAccountsNotFoundException(AccountsNotFoundException e, WebRequest request) {
         ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND
+
+        Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
+    }
+
+    @ExceptionHandler(AccountsDocumentNumberExistsException.class)
+    ResponseEntity<?> handleAccountsDocumentNumberExistsException(
+        AccountsDocumentNumberExistsException e,
+        WebRequest request
+    ) {
+        ProblemType problemType = ProblemType.EXISTS_RESOURCE_EQUALS
 
         Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
 
