@@ -4,7 +4,8 @@ enum ProblemType {
 
     RESOURCE_NOT_FOUND("/recurso-nao-encontrado", "Recurso não encontrado"),
     INVALID_DATA("/dados-invalidos", "Dados inválidos"),
-    EXISTS_RESOURCE_EQUALS("/recurso-existente", "Recurso existente")
+    EXISTS_RESOURCE_EQUALS("/recurso-existente", "Recurso existente"),
+    NO_CREDIT_AVAILABLE("/credito-indisponivel", "Crédito indisponível")
 
     String title
 

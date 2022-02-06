@@ -2,8 +2,13 @@ package br.com.bank.api.exceptionHandler
 
 import br.com.bank.domain.exception.AccountsDocumentNumberExistsException
 import br.com.bank.domain.exception.AccountsNotFoundException
+import br.com.bank.domain.exception.AccountsWithoutCreditAvailableException
 import br.com.bank.domain.exception.AccountsWithoutDocumentNumberException
 import br.com.bank.domain.exception.InvalidTransactionsTypesException
+import br.com.bank.domain.exception.TransactionsEmptyValuesException
+import br.com.bank.domain.exception.TransactionsNotFoundException
+import br.com.bank.domain.exception.TransactionsTransferAccountsIsEqualsException
+import br.com.bank.domain.exception.TransactionsValueLessThanZero
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -50,6 +55,36 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(e, body, headers, status, request)
     }
 
+    @ExceptionHandler(AccountsDocumentNumberExistsException.class)
+    ResponseEntity<?> handleAccountsDocumentNumberExistsException(
+            AccountsDocumentNumberExistsException e,
+            WebRequest request
+    ) {
+        ProblemType problemType = ProblemType.EXISTS_RESOURCE_EQUALS
+
+        Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
+    }
+
+    @ExceptionHandler(AccountsNotFoundException.class)
+    ResponseEntity<?> handleAccountsNotFoundException(AccountsNotFoundException e, WebRequest request) {
+        ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND
+
+        Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
+    }
+
+    @ExceptionHandler(AccountsWithoutCreditAvailableException.class)
+    ResponseEntity<?> handleAccountsWithoutCreditAvailableException(AccountsWithoutCreditAvailableException e, WebRequest request) {
+        ProblemType problemType = ProblemType.NO_CREDIT_AVAILABLE
+
+        Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
+    }
+
     @ExceptionHandler(AccountsWithoutDocumentNumberException.class)
     ResponseEntity<?> handleAccountWithoutDocumentNumberException(
             AccountsWithoutDocumentNumberException e,
@@ -71,8 +106,17 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
     }
 
-    @ExceptionHandler(AccountsNotFoundException.class)
-    ResponseEntity<?> handleAccountsNotFoundException(AccountsNotFoundException e, WebRequest request) {
+    @ExceptionHandler(TransactionsEmptyValuesException.class)
+    ResponseEntity<?> handleInvalidTransactionsEmptyValuesException(TransactionsEmptyValuesException e, WebRequest request) {
+        ProblemType problemType = ProblemType.INVALID_DATA
+
+        Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
+    }
+
+    @ExceptionHandler(TransactionsNotFoundException.class)
+    ResponseEntity<?> handleTransactionsNotFoundException(TransactionsNotFoundException e, WebRequest request) {
         ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND
 
         Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
@@ -80,12 +124,24 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
     }
 
-    @ExceptionHandler(AccountsDocumentNumberExistsException.class)
-    ResponseEntity<?> handleAccountsDocumentNumberExistsException(
-        AccountsDocumentNumberExistsException e,
-        WebRequest request
+    @ExceptionHandler(TransactionsTransferAccountsIsEqualsException.class)
+    ResponseEntity<?> handleTransactionsTransferAccountsIsEqualsException(
+            TransactionsTransferAccountsIsEqualsException e,
+            WebRequest request
     ) {
-        ProblemType problemType = ProblemType.EXISTS_RESOURCE_EQUALS
+        ProblemType problemType = ProblemType.INVALID_DATA
+
+        Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), e.status, request)
+    }
+
+    @ExceptionHandler(TransactionsValueLessThanZero.class)
+    ResponseEntity<?> handleTransactionsValueLessThanZero(
+            TransactionsValueLessThanZero e,
+            WebRequest request
+    ) {
+        ProblemType problemType = ProblemType.INVALID_DATA
 
         Problem problem = createProblemBuilder(e.status, problemType, e.getReason(), e.getReason())
 
