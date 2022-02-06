@@ -27,6 +27,7 @@ class TransactionsService {
     @Autowired
     TransactionsTypesService transactionsTypesService
 
+    @Transactional(readOnly = true)
     Transactions findById(Long id){
         Transactions transactions = transactionsRepository.findById(id).orElseThrow{ new TransactionsNotFoundException() }
 
