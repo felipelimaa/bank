@@ -114,7 +114,7 @@ class TransactionsService {
         }
 
         // verify if value transaction is less than zero
-        if(transactionsDTO.transactionValue < 0 ) {
+        if(transactionsDTO.transactionValue <= 0 ) {
             throw new TransactionsValueLessThanZero()
         }
 
