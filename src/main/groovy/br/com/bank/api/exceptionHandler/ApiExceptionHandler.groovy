@@ -10,6 +10,7 @@ import br.com.bank.domain.exception.TransactionsNotFoundException
 import br.com.bank.domain.exception.TransactionsTransferAccountsIsEqualsException
 import br.com.bank.domain.exception.TransactionsValueLessThanZero
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -53,6 +54,32 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         return super.handleExceptionInternal(e, body, headers, status, request)
+    }
+
+    @ExceptionHandler(Exception.class)
+    ResponseEntity<?> handleUncaught(Exception e, WebRequest request){
+
+        ProblemType problemType = ProblemType.UNHANDLED_ERROR
+
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR
+
+        Problem problem = createProblemBuilder(status, problemType, MSG_ERRO_GENERICO, MSG_ERRO_GENERICO)
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request)
+    }
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    ResponseEntity<?> handleInvalidDataAccessApiUsageException(
+            InvalidDataAccessApiUsageException e,
+            WebRequest request
+    ) {
+        ProblemType problemType = ProblemType.INVALID_DATA
+
+        HttpStatus status = HttpStatus.BAD_REQUEST
+
+        Problem problem = createProblemBuilder(status, problemType, MSG_ERRO_GENERICO, MSG_ERRO_GENERICO)
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request)
     }
 
     @ExceptionHandler(AccountsDocumentNumberExistsException.class)
