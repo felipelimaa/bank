@@ -33,6 +33,9 @@ class AccountsServiceTest extends GeneralTest {
     // handle new account register with success
     @Test
     void accounts_InsertWithSuccess(){
+        // clear all db data
+        clearDb()
+
         Accounts accounts = new Accounts(documentNumber: "123")
         Accounts accountsCreated = accountsService.create(accounts)
 

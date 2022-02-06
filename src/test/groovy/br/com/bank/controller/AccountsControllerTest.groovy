@@ -43,6 +43,9 @@ class AccountsControllerTest extends GeneralTest {
     // handle new account register with success
     @Test
     void accounts_InsertWithSuccess(){
+        // clear all db data
+        clearDb()
+
         def account = createAccount()
 
         def response = mvc
