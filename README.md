@@ -15,7 +15,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 - [X] Realizar transferência
 - [X] Permitir a listagem de transações por conta
 - [X] Criar testes de Accounts
-- [ ] Criar testes de Transactions
+- [X] Criar testes de Transactions
 
 ## Desenvolvimento
 O projeto é executado através do _Spring Boot_ como framework backend e banco de dados _PostgreSQL_ para armazenamento dos dados.
@@ -42,7 +42,14 @@ Após o servidor do banco de dados estar em execução, abra o projeto na sua ID
 Através de uma IDE, é possível executar a classe: `BankApplication.groovy`
 
 ## Testes
-Em breve
+Os testes foram desenvolvidos utilizando o **MockMVC** e banco de dados **H2** para guardar os dados em memória.
+
+O arquivo profile utilizado para definir as configuraçõs dos testes é o ```application-test.yaml```.
+
+Caso queira executar os testes, utilize o seguinte comando:
+```
+./gradlew test
+```
 
 ## Execução do projeto completo (build and deploy)
 O projeto contempla um arquivo `docker-compose.yaml` e um `Dockerfile` composto com o processo de build e execução do projeto (multi-stage).
