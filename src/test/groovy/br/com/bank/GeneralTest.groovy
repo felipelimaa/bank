@@ -7,5 +7,5 @@ import org.springframework.test.context.ActiveProfiles
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class GeneralTest {
+abstract class GeneralTest {
 }
